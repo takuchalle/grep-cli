@@ -3,6 +3,24 @@ use std::fs::File;
 use std::io::Read;
 use std::path::Path;
 
+pub trait MatcherTrait {
+    fn execute(&self, line: &str) -> bool;
+}
+
+pub struct FixedStringsMatcher {
+    pattern: String,
+}
+impl FixedStringsMatcher {
+    pub fn new(pattern: String) -> FixedStringsMatcher {
+        FixedStringsMatcher { pattern: pattern }
+    }
+}
+impl MatcherTrait for FixedStringsMatcher {
+    fn execute(&self, line: &str) -> bool {
+        line.contains(&self.pattern)
+    }
+}
+
 fn main() {
     let matches = App::new("grep")
         .version(crate_version!())
