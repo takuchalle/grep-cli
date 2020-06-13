@@ -55,6 +55,13 @@ name = "grep-cli"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "grep-core",
+]
+
+[[package]]
+name = "grep-core"
+version = "0.1.0"
+dependencies = [
  "regex",
 ]
 
