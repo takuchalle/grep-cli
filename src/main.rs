@@ -1,4 +1,7 @@
 use clap::{crate_authors, crate_version, App, Arg};
+use std::fs::File;
+use std::io::Read;
+use std::path::Path;
 
 fn main() {
     let matches = App::new("grep")
@@ -26,5 +29,33 @@ fn main() {
         )
         .get_matches();
 
-    println!("{:?}", matches);
+    let pattern = matches.value_of("PATTERNS").unwrap();
+    let file_pathes = matches
+        .values_of("FILES")
+        .unwrap()
+        .map(|x| x.to_string())
+        .collect::<Vec<String>>();
+
+    for file_path in file_pathes {
+        let path = Path::new(&file_path);
+        let display = path.display();
+
+        let mut file = match File::open(&path) {
+            Err(why) => panic!("couldn't open {}, {}", why, display.to_string()),
+            Ok(file) => file,
+        };
+
+        let mut s = String::new();
+
+        match file.read_to_string(&mut s) {
+            Err(why) => panic!("couldn't read {} {}", why, display.to_string()),
+            Ok(_) => {
+                for line in s.lines() {
+                    println!("{}", line);
+                }
+            }
+        }
+    }
+
+    println!("{:?}", pattern);
 }
