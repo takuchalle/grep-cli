@@ -8,4 +8,4 @@ edition = "2018"
 
 [dependencies]
 clap = "2.33.1"
-grep-core = { path = "../grep-core" }
+grep-core = { git = "https://github.com/takuyaohashi/grep-core" }

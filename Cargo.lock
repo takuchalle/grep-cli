@@ -61,6 +61,7 @@ dependencies = [
 [[package]]
 name = "grep-core"
 version = "0.1.0"
+source = "git+https://github.com/takuyaohashi/grep-core#ac05367f0e33a9437bbefe0aa267be450c7f7111"
 dependencies = [
  "regex",
 ]
